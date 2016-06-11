@@ -30,13 +30,9 @@ int framed_area(int x, int y) // calculate area within frame
 	return area(x- frame_with, y- frame_with);
 };
 
-class descriptive_exception : public std::exception {
-public:
-	descriptive_exception(std::string const &message) : msg_(message) { }
-	virtual char const *what() const noexcept { return msg_.c_str(); }
-
-private:
-	std::string msg_;
+void print_bad_input(string error_string){
+	cout << error_string << endl;
+	error(error_string);
 };
 
 	int main()
@@ -45,9 +41,9 @@ private:
 		int y = 2;
 		int z = 4;
 		// . . .
-		if (x <= 0 || y <= 0) 
-			throw descriptive_exception("X||Y smaller than 0 ");
-
+		if (x <= 0 || y <= 0) {
+			print_bad_input("X||Y smaller than 0 ");
+		};
 		int area1 = area(x, y);
 		int area2 = framed_area(1, z);
 		int area3 = framed_area(y, z);
